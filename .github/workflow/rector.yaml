@@ -1,0 +1,22 @@
+name: Rector
+on:
+# the CI will be triggered on commits to pull requests
+pull_request: null
+jobs:
+rector:
+# you can also chose from Ubuntu, Windows and MacOS
+runs-on: ubuntu-latest
+steps:
+# clone the repository code to the CI workspace
+- uses: actions/checkout@v2
+# use PHP 8
+# (see https://github.com/shivammathur/setup-php)
+-
+uses: shivammathur/setup-php@v2
+with:
+php-version: 8.0
+# install Composer dependencies with cache
+# (see https://github.com/ramsey/composer-install)
+- uses: "ramsey/composer-install@v1"
+# run Rector
+- run: vendor/bin/rector process --ansi --dry-run
